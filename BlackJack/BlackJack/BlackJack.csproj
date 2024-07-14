@@ -66,6 +66,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -134,6 +135,8 @@
     <Content Include="CarteDaGioco\BlackJack_4_7.PNG" />
     <Content Include="CarteDaGioco\BlackJack_4_8.PNG" />
     <Content Include="CarteDaGioco\BlackJack_4_9.PNG" />
+    <Content Include="ChiedereCarta.jpg" />
+    <None Include="Resources\ChiedereCarta.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
