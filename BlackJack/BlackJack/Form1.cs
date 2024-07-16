@@ -23,6 +23,7 @@ namespace BlackJack
         int TotaleGiocatore, TotaleDealer;
         int contanumcarteuser = 0;
         int contanumcartedealer = 0;
+        DialogResult finepartita;
         public Form1()
         {
             nuovecarteuser = new Carta[3];
@@ -41,15 +42,16 @@ namespace BlackJack
         }
         private void AssegnaPrimeCarte()
         {
+            
             carta1Dealer = new Carta(random);
             Carta1Dealer.BackgroundImageLayout = ImageLayout.Stretch;
-            Carta1Dealer.BackgroundImage = new Bitmap(carta1Dealer.getImage());
+            //la carta 1 dealer non viene ancora rivelata
 
             carta2Dealer = new Carta(random);
             Carta2Dealer.BackgroundImageLayout = ImageLayout.Stretch;
             Carta2Dealer.BackgroundImage = new Bitmap(carta2Dealer.getImage());
 
-            TotaleDealer = carta2Dealer.getValore() + carta1Dealer.getValore();
+            TotaleDealer = carta2Dealer.getValore() ;
             labeltotaledealer.Text = TotaleDealer.ToString();  //Scrivere nella label il totale
 
             carta1User = new Carta(random);
@@ -62,6 +64,19 @@ namespace BlackJack
 
             TotaleGiocatore = carta2User.getValore() + carta1User.getValore();
             labeltotaleuser.Text = TotaleGiocatore.ToString(); //Scrivere nella label il totale
+        }
+
+        private void NuovoTurno()
+        {
+            contanumcartedealer = 0;
+            contanumcarteuser = 0;
+            nuovecartedealer = new Carta[3];
+            nuovecarteuser = new Carta[3];
+            Carta1Dealer.BackgroundImage = new Bitmap("C:\\Users\\mirco\\Desktop\\C#\\BlackJack\\BlackJack\\Resources\\retrocarta.png");
+            Carta3User.Visible = false; Carta4User.Visible = false; Carta5User.Visible = false;
+            carta3Dealer.Visible = false; carta4Dealer.Visible = false; carta5Dealer.Visible = false;
+            AssegnaPrimeCarte();
+            Aspetta();
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -98,16 +113,30 @@ namespace BlackJack
                 break;
             }
             labeltotaleuser.Text = TotaleGiocatore.ToString();
+            if(TotaleGiocatore > 21)
+            {
+                finepartita = MessageBox.Show("Hai sballato!!", "Fine partita!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                Ricomincia(finepartita);
+            }
             Aspetta();
         }
 
-        private void StaiButton_Click(object sender, EventArgs e)
+        private void Ricomincia(DialogResult finepartita)
+        {
+            if (finepartita == DialogResult.Cancel) { this.Close(); }
+            else if(finepartita == DialogResult.Retry) { NuovoTurno(); }
+        }
+        private async void StaiButton_Click(object sender, EventArgs e)
         {
             panel1.Visible = false;
-            while(TotaleDealer < 17)
+            Carta1Dealer.BackgroundImage = new Bitmap(carta1Dealer.getImage()); //carta1dealer viene rivelata
+            TotaleDealer += carta1Dealer.getValore(); //valore carta 1 aggiunto e visualizzato nella label
+            labeltotaledealer.Text = TotaleDealer.ToString();
+            await Task.Delay(1000);
+            while (TotaleDealer < 17)
             {
                 switch (contanumcartedealer)
-                { //switch per far comparire le altre carte quando viene schiacciato il tasto stai
+                { //switch per far comparire le carte del dealer quando viene schiacciato il tasto stai
                     case 0:
                         carta3Dealer.Visible = true;
                         nuovecartedealer[contanumcartedealer] = new Carta(random);
@@ -136,8 +165,25 @@ namespace BlackJack
 
             }
             labeltotaledealer.Text = TotaleDealer.ToString();
+            if(finepartita != DialogResult.Cancel || finepartita != DialogResult.Retry)
+            {
+                ControlloFinePartita(); //se la message box non è ancora comparsa compare quando viene schiacciato il tasto stai
+            }
         }
 
+        private void ControlloFinePartita()
+        {
+            if (TotaleGiocatore > TotaleDealer || TotaleDealer > 21) { finepartita = MessageBox.Show("Vittoria!!!", "Fine partita!", 
+                MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation);}
+
+            else if (TotaleDealer > TotaleGiocatore){ finepartita = MessageBox.Show("Il dealer ha un punteggio superiore!!!", "Fine partita!", 
+                MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);}
+
+            else if(TotaleDealer == TotaleGiocatore){finepartita = MessageBox.Show("Pareggio!!!", "Fine partita!", 
+                MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);}
+
+            Ricomincia(finepartita);
+        }
         private void label1_Click(object sender, EventArgs e)
         {
 

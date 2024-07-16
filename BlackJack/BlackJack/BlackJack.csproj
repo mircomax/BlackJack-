@@ -136,7 +136,10 @@
     <Content Include="CarteDaGioco\BlackJack_4_8.PNG" />
     <Content Include="CarteDaGioco\BlackJack_4_9.PNG" />
     <Content Include="ChiedereCarta.jpg" />
-    <None Include="Resources\ChiedereCarta.jpg" />
+    <Content Include="Resources\ChiedereCarta.jpg" />
+    <Content Include="Resources\retrocarta.png" />
+    <None Include="Resources\retrocarta1.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

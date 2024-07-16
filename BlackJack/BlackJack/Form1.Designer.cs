@@ -67,6 +67,7 @@
             // 
             // Carta1Dealer
             // 
+            this.Carta1Dealer.BackgroundImage = global::BlackJack.Properties.Resources.retrocarta;
             this.Carta1Dealer.Location = new System.Drawing.Point(427, 53);
             this.Carta1Dealer.Name = "Carta1Dealer";
             this.Carta1Dealer.Size = new System.Drawing.Size(118, 170);
