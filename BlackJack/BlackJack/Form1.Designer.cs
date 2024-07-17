@@ -35,6 +35,7 @@
             this.labeltotaleuser = new System.Windows.Forms.Label();
             this.labeltotaledealer = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.labeltitolopanel = new System.Windows.Forms.Label();
@@ -46,11 +47,22 @@
             this.carta4Dealer = new System.Windows.Forms.Button();
             this.carta3Dealer = new System.Windows.Forms.Button();
             this.carta5Dealer = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Saldo_corrente = new System.Windows.Forms.Label();
+            this.PuntataCorrente = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.Puntabtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PuntataCorrente)).BeginInit();
             this.SuspendLayout();
             // 
             // Carta2User
             // 
+            this.Carta2User.BackgroundImage = global::BlackJack.Properties.Resources.retrocarta;
+            this.Carta2User.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Carta2User.Location = new System.Drawing.Point(517, 458);
             this.Carta2User.Name = "Carta2User";
             this.Carta2User.Size = new System.Drawing.Size(118, 170);
@@ -59,6 +71,8 @@
             // 
             // Carta1User
             // 
+            this.Carta1User.BackgroundImage = global::BlackJack.Properties.Resources.retrocarta;
+            this.Carta1User.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Carta1User.Location = new System.Drawing.Point(427, 458);
             this.Carta1User.Name = "Carta1User";
             this.Carta1User.Size = new System.Drawing.Size(118, 170);
@@ -68,6 +82,7 @@
             // Carta1Dealer
             // 
             this.Carta1Dealer.BackgroundImage = global::BlackJack.Properties.Resources.retrocarta;
+            this.Carta1Dealer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Carta1Dealer.Location = new System.Drawing.Point(427, 53);
             this.Carta1Dealer.Name = "Carta1Dealer";
             this.Carta1Dealer.Size = new System.Drawing.Size(118, 170);
@@ -76,6 +91,8 @@
             // 
             // Carta2Dealer
             // 
+            this.Carta2Dealer.BackgroundImage = global::BlackJack.Properties.Resources.retrocarta;
+            this.Carta2Dealer.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Carta2Dealer.Location = new System.Drawing.Point(511, 53);
             this.Carta2Dealer.Name = "Carta2Dealer";
             this.Carta2Dealer.Size = new System.Drawing.Size(118, 170);
@@ -106,6 +123,7 @@
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.progressBar1);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.labeltitolopanel);
@@ -117,6 +135,18 @@
             this.panel1.Size = new System.Drawing.Size(420, 280);
             this.panel1.TabIndex = 6;
             this.panel1.Visible = false;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.BackColor = System.Drawing.Color.BlueViolet;
+            this.progressBar1.ForeColor = System.Drawing.Color.Khaki;
+            this.progressBar1.Location = new System.Drawing.Point(38, 222);
+            this.progressBar1.Maximum = 1000;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(342, 15);
+            this.progressBar1.Step = 100;
+            this.progressBar1.TabIndex = 5;
+            this.progressBar1.Value = 1000;
             // 
             // label2
             // 
@@ -229,29 +259,109 @@
             this.carta5Dealer.UseVisualStyleBackColor = true;
             this.carta5Dealer.Visible = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Image = global::BlackJack.Properties.Resources.retrocarta;
+            this.pictureBox1.Location = new System.Drawing.Point(52, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(118, 170);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 13;
+            this.pictureBox1.TabStop = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.groupBox1.Controls.Add(this.Puntabtn);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.PuntataCorrente);
+            this.groupBox1.Controls.Add(this.Saldo_corrente);
+            this.groupBox1.Location = new System.Drawing.Point(12, 244);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(286, 208);
+            this.groupBox1.TabIndex = 14;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Saldo";
+            // 
+            // Saldo_corrente
+            // 
+            this.Saldo_corrente.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Saldo_corrente.Location = new System.Drawing.Point(16, 50);
+            this.Saldo_corrente.Name = "Saldo_corrente";
+            this.Saldo_corrente.Size = new System.Drawing.Size(208, 25);
+            this.Saldo_corrente.TabIndex = 15;
+            this.Saldo_corrente.Text = "Saldo Corrente: 100";
+            this.Saldo_corrente.Click += new System.EventHandler(this.label3_Click);
+            // 
+            // PuntataCorrente
+            // 
+            this.PuntataCorrente.BackColor = System.Drawing.SystemColors.Window;
+            this.PuntataCorrente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PuntataCorrente.Location = new System.Drawing.Point(112, 89);
+            this.PuntataCorrente.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.PuntataCorrente.Name = "PuntataCorrente";
+            this.PuntataCorrente.Size = new System.Drawing.Size(140, 22);
+            this.PuntataCorrente.TabIndex = 15;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(16, 90);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(76, 19);
+            this.label3.TabIndex = 15;
+            this.label3.Text = "Puntata:";
+            this.label3.Click += new System.EventHandler(this.label3_Click_1);
+            // 
+            // Puntabtn
+            // 
+            this.Puntabtn.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.Puntabtn.Font = new System.Drawing.Font("Arial", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Puntabtn.Location = new System.Drawing.Point(144, 131);
+            this.Puntabtn.Name = "Puntabtn";
+            this.Puntabtn.Size = new System.Drawing.Size(102, 49);
+            this.Puntabtn.TabIndex = 15;
+            this.Puntabtn.Text = "PUNTA";
+            this.Puntabtn.UseVisualStyleBackColor = false;
+            this.Puntabtn.Click += new System.EventHandler(this.Puntabtn_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1055, 681);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.carta5Dealer);
             this.Controls.Add(this.carta4Dealer);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.Carta5User);
             this.Controls.Add(this.Carta4User);
-            this.Controls.Add(this.carta3Dealer);
-            this.Controls.Add(this.Carta3User);
             this.Controls.Add(this.labeltotaledealer);
             this.Controls.Add(this.labeltotaleuser);
-            this.Controls.Add(this.Carta2Dealer);
-            this.Controls.Add(this.Carta1Dealer);
+            this.Controls.Add(this.Carta3User);
             this.Controls.Add(this.Carta2User);
             this.Controls.Add(this.Carta1User);
+            this.Controls.Add(this.carta3Dealer);
+            this.Controls.Add(this.Carta2Dealer);
+            this.Controls.Add(this.Carta1Dealer);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "BlackJack";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PuntataCorrente)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -277,6 +387,13 @@
         private System.Windows.Forms.Button carta4Dealer;
         private System.Windows.Forms.Button carta3Dealer;
         private System.Windows.Forms.Button carta5Dealer;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label Saldo_corrente;
+        private System.Windows.Forms.Button Puntabtn;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown PuntataCorrente;
     }
 }
 

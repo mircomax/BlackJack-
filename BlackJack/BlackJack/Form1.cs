@@ -20,69 +20,63 @@ namespace BlackJack
         Random random;
         Carta[] nuovecarteuser;
         Carta[] nuovecartedealer;
-        int TotaleGiocatore, TotaleDealer;
+        int TotaleGiocatore, TotaleDealer, puntata;
         int contanumcarteuser = 0;
         int contanumcartedealer = 0;
         DialogResult finepartita;
+        Saldo primosaldo;
+        string percorsoretrocarte = "C:\\Users\\mirco\\Desktop\\C#\\BlackJack\\BlackJack\\Resources\\retrocarta.png";
         public Form1()
         {
+            primosaldo = new Saldo();
+            PuntataCorrente = new NumericUpDown();
+            progressBar1 = new ProgressBar();
             nuovecarteuser = new Carta[3];
             nuovecartedealer = new Carta[3];
             panel1 = new Panel();
-            panel1.Visible = false;
-            random = new Random();
+            puntata = new int();
             InitializeComponent();
-            AssegnaPrimeCarte();
-            Aspetta();
+           
+            random = new Random();
         }
         private async void Aspetta()
         {
             await Task.Delay(3000);
             panel1.Visible = true;
+            progressBar1.Value = 1000;
+            for (int i = 0; i < 1000; i++)
+            {
+                await Task.Delay(10);
+                progressBar1.Value--;
+                if (!panel1.Visible) { 
+                    break; //se un qualsiasi tasto è cliccato esce dal ciclo 
+                }
+                else if (progressBar1.Value == 1)
+                {
+                    StaiButton.PerformClick();
+                }//se non viene cliccato nulla prima della scadenza del timer viene cliccato in automatico il tasto "Stai"
+            }
         }
         private void AssegnaPrimeCarte()
         {
             
             carta1Dealer = new Carta(random);
-            Carta1Dealer.BackgroundImageLayout = ImageLayout.Stretch;
-            //la carta 1 dealer non viene ancora rivelata
 
-            carta2Dealer = new Carta(random);
-            Carta2Dealer.BackgroundImageLayout = ImageLayout.Stretch;
-            Carta2Dealer.BackgroundImage = new Bitmap(carta2Dealer.getImage());
+            carta2Dealer = new Carta(random);           
+            Carta2Dealer.BackgroundImage = new Bitmap(carta2Dealer.getImage()); //visualizzare l'immagine sulla carta
 
             TotaleDealer = carta2Dealer.getValore() ;
             labeltotaledealer.Text = TotaleDealer.ToString();  //Scrivere nella label il totale
 
             carta1User = new Carta(random);
-            Carta1User.BackgroundImageLayout = ImageLayout.Stretch;
-            Carta1User.BackgroundImage = new Bitmap(carta1User.getImage());
+            Carta1User.BackgroundImage = new Bitmap(carta1User.getImage()); //visualizzare l'immagine sulla carta
 
             carta2User = new Carta(random);   
-            Carta2User.BackgroundImageLayout = ImageLayout.Stretch;
-            Carta2User.BackgroundImage = new Bitmap(carta2User.getImage());
+            Carta2User.BackgroundImage = new Bitmap(carta2User.getImage()); //visualizzare l'immagine sulla carta 
 
             TotaleGiocatore = carta2User.getValore() + carta1User.getValore();
             labeltotaleuser.Text = TotaleGiocatore.ToString(); //Scrivere nella label il totale
         }
-
-        private void NuovoTurno()
-        {
-            contanumcartedealer = 0;
-            contanumcarteuser = 0;
-            nuovecartedealer = new Carta[3];
-            nuovecarteuser = new Carta[3];
-            Carta1Dealer.BackgroundImage = new Bitmap("C:\\Users\\mirco\\Desktop\\C#\\BlackJack\\BlackJack\\Resources\\retrocarta.png");
-            Carta3User.Visible = false; Carta4User.Visible = false; Carta5User.Visible = false;
-            carta3Dealer.Visible = false; carta4Dealer.Visible = false; carta5Dealer.Visible = false;
-            AssegnaPrimeCarte();
-            Aspetta();
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void CartaButton_Click(object sender, EventArgs e)
         {
             panel1.Visible = false;
@@ -92,7 +86,7 @@ namespace BlackJack
                     nuovecarteuser[contanumcarteuser] = new Carta(random);
                     Carta3User.BackgroundImageLayout = ImageLayout.Stretch;
                     Carta3User.BackgroundImage = new Bitmap(nuovecarteuser[contanumcarteuser].getImage());
-                    TotaleGiocatore += nuovecarteuser[contanumcarteuser].getValore();
+                    TotaleGiocatore += nuovecarteuser[contanumcarteuser].getValore(); //aggiunge il valore della carta al totale
                     contanumcarteuser++;
                 break;
                 case 1:
@@ -100,7 +94,7 @@ namespace BlackJack
                     nuovecarteuser[contanumcarteuser] = new Carta(random);
                     Carta4User.BackgroundImageLayout = ImageLayout.Stretch;
                     Carta4User.BackgroundImage = new Bitmap(nuovecarteuser[contanumcarteuser].getImage());
-                    TotaleGiocatore += nuovecarteuser[contanumcarteuser].getValore();
+                    TotaleGiocatore += nuovecarteuser[contanumcarteuser].getValore(); //aggiunge il valore della carta al totale
                     contanumcarteuser++;
                 break;
                 case 2:
@@ -108,23 +102,17 @@ namespace BlackJack
                     nuovecarteuser[contanumcarteuser] = new Carta(random);
                     Carta5User.BackgroundImageLayout = ImageLayout.Stretch;
                     Carta5User.BackgroundImage = new Bitmap(nuovecarteuser[contanumcarteuser].getImage());
-                    TotaleGiocatore += nuovecarteuser[contanumcarteuser].getValore();
+                    TotaleGiocatore += nuovecarteuser[contanumcarteuser].getValore(); //aggiunge il valore della carta al totale
                     contanumcarteuser++;
                 break;
             }
             labeltotaleuser.Text = TotaleGiocatore.ToString();
-            if(TotaleGiocatore > 21)
+            if(TotaleGiocatore > 21) //controllo nel caso il giocatore sballi
             {
                 finepartita = MessageBox.Show("Hai sballato!!", "Fine partita!", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
                 Ricomincia(finepartita);
             }
             Aspetta();
-        }
-
-        private void Ricomincia(DialogResult finepartita)
-        {
-            if (finepartita == DialogResult.Cancel) { this.Close(); }
-            else if(finepartita == DialogResult.Retry) { NuovoTurno(); }
         }
         private async void StaiButton_Click(object sender, EventArgs e)
         {
@@ -162,29 +150,81 @@ namespace BlackJack
                         contanumcartedealer++;
                         break;
                 }
-
+                labeltotaledealer.Text = TotaleDealer.ToString();
+                await Task.Delay(1000);
             }
-            labeltotaledealer.Text = TotaleDealer.ToString();
             if(finepartita != DialogResult.Cancel || finepartita != DialogResult.Retry)
             {
                 ControlloFinePartita(); //se la message box non è ancora comparsa compare quando viene schiacciato il tasto stai
             }
         }
+        private void NuovoTurno()
+        {
+            contanumcartedealer = 0; contanumcarteuser = 0; //setta i contatori delle carte aggiuntive a 0
+            nuovecartedealer = new Carta[3]; nuovecarteuser = new Carta[3]; //create nuove istanze delle carte
+            labeltotaledealer.Text = "0";
+            labeltotaleuser.Text = "0";
+            //Carte iniziali nascoste
+            Carta1Dealer.BackgroundImage = new Bitmap(percorsoretrocarte); Carta2Dealer.BackgroundImage = new Bitmap(percorsoretrocarte);
+            Carta1User.BackgroundImage = new Bitmap(percorsoretrocarte); Carta2User.BackgroundImage = new Bitmap(percorsoretrocarte);
+            //vengono fatte scomparire le carte aggiuntive
+            Carta3User.Visible = false; Carta4User.Visible = false; Carta5User.Visible = false;
+            carta3Dealer.Visible = false; carta4Dealer.Visible = false; carta5Dealer.Visible = false; 
 
+            groupBox1.Enabled = true; //la groupbox torna ad essere disponibile per ricevere la puntata e ricreare la partita
+            Saldo_corrente.Text = "Saldo Corrente: " + primosaldo.getSaldoCorrente();
+        }
+        private void Ricomincia(DialogResult finepartita)
+        {
+            if (finepartita == DialogResult.Cancel) { this.Close(); } //se viene schiacciato il tasto annulla viene chiuso il form 
+            else if (finepartita == DialogResult.Retry) { NuovoTurno(); } //se veien schiacciato il tasto riprova si riinizia il turno
+        }
         private void ControlloFinePartita()
         {
-            if (TotaleGiocatore > TotaleDealer || TotaleDealer > 21) { finepartita = MessageBox.Show("Vittoria!!!", "Fine partita!", 
+            if (TotaleGiocatore > TotaleDealer || TotaleDealer > 21) {
+                primosaldo.AggiungiSaldo(puntata*2);
+                finepartita = MessageBox.Show($"Hai Vinto!\n+{puntata*2} nel tuo saldo!", "Fine partita!", 
                 MessageBoxButtons.RetryCancel, MessageBoxIcon.Exclamation);}
 
             else if (TotaleDealer > TotaleGiocatore){ finepartita = MessageBox.Show("Il dealer ha un punteggio superiore!!!", "Fine partita!", 
                 MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);}
 
-            else if(TotaleDealer == TotaleGiocatore){finepartita = MessageBox.Show("Pareggio!!!", "Fine partita!", 
-                MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);}
+            else if(TotaleDealer == TotaleGiocatore){
+                primosaldo.AggiungiSaldo(puntata);
+                finepartita = MessageBox.Show("Pareggio!!!", "Fine partita!", 
+                MessageBoxButtons.RetryCancel, MessageBoxIcon.Information);}
 
             Ricomincia(finepartita);
         }
+        private void Puntabtn_Click(object sender, EventArgs e)
+        {
+            puntata = (int)PuntataCorrente.Value;
+            if ((puntata <= primosaldo.getSaldoCorrente()) && (puntata > 0))
+            {
+                Saldo_corrente.Text = "Saldo Corrente: " + primosaldo.Punta(puntata);
+                groupBox1.Enabled = false;
+                panel1.Visible = false;
+                AssegnaPrimeCarte();
+                Aspetta();
+            }
+            else
+            {
+                MessageBox.Show("Puntata non valida!", "Errore!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+
+        }
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }
